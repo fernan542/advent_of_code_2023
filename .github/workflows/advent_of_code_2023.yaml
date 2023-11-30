@@ -1,0 +1,34 @@
+name: advent_of_code_2023
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/advent_of_code_2023.yaml"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
+
+jobs:
+  verify-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v2
+
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: "stable"
+
+      - name: 📦 Install Dependencies
+        run: |
+          dart pub get
+
+      - name: 🔎 Verify version
+        run: dart run test --run-skipped -t version-verify
