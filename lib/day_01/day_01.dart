@@ -1,62 +1,84 @@
+import 'dart:io';
+
 import 'package:advent_of_code_2023/day.dart';
+import 'package:advent_of_code_2023/extensions.dart';
 
-const caloriesInput = [
-  '1000',
-  '2000',
-  '3000',
-  '',
-  '4000',
-  '',
-  '5000',
-  '6000',
-  '',
-  '7000',
-  '8000',
-  '9000',
-  '',
-  '10000',
-  '',
-  '9999999',
-];
-
-class Day01 extends Day<List<int>> {
+class Day01 extends Day<int> {
   Day01({
-    super.title = 'Calorie Counting',
+    super.title = 'Trebuchet?!',
+    super.url = 'https://adventofcode.com/2023/day/1',
   }) {
     logTitle();
   }
 
   @override
-  List<int> execute() {
-    final calories = <int>[];
+  int executeP1() {
+    final lines = File('lib/day_01/input_01.txt').readAsLinesSync();
+    final answer = lines.fold(
+      0,
+      (calibration, line) {
+        final nums = line.replaceAll(RegExp('[A-Za-z]'), '');
+        final left = nums[0];
+        final right = nums[nums.length - 1];
+        return calibration += int.parse('$left$right');
+      },
+    );
 
-    var tmp = 0;
+    print(answer);
+    return answer;
+  }
 
-    for (final calorie in caloriesInput.followedBy(const [''])) {
-      if (calorie.isEmpty) {
-        if (tmp != 0) calories.add(tmp);
-        tmp = 0;
-      } else {
-        tmp += int.parse(calorie);
-      }
-    }
+  final _numbersWord = <String>[
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
 
-    final sortedCalories = [...calories]..sort((a, b) => b.compareTo(a));
-    print('Order of Elf to ask:');
+  @override
+  int executeP2() {
+    final lines = File('lib/day_01/input_01.txt').readAsLinesSync();
+    final answer = lines.fold(
+      0,
+      (calibration, line) {
+        String? left;
+        String? right;
 
-    final sb = StringBuffer();
-    for (var c = 0; c < sortedCalories.length; c++) {
-      final index = calories.indexOf(sortedCalories[c]);
-      sb.write('Elf #$index [${sortedCalories[c]}]');
+        for (var lineChar = 0; lineChar < line.length; lineChar++) {
+          if (int.tryParse(line[lineChar]) != null && left == null) {
+            left = line[lineChar];
+          }
 
-      if (c == 0) {
-        sb.write(' - Highest Calories');
-      }
+          if (lineChar + 2 < line.length) {
+            for (var w = 0; w < _numbersWord.length; w++) {
+              final lineFirstThree =
+                  '${line[lineChar]}${line[lineChar + 1]}${line[lineChar + 2]}';
 
-      sb.writeln();
-    }
+              if (_numbersWord[w].firstThree == lineFirstThree) {
+                if (left == null) {
+                  left = '$w';
+                } else {
+                  right = '$w';
+                }
 
-    print(sb);
-    return sortedCalories;
+                continue;
+              }
+            }
+          }
+
+          if (int.tryParse(line[lineChar]) != null) right = line[lineChar];
+        }
+        return calibration += int.parse('$left$right');
+      },
+    );
+
+    print(answer);
+    return answer;
   }
 }

@@ -1,10 +1,13 @@
-abstract class Day<R> {
+abstract class Day<A> {
   const Day({
     required this.title,
+    required this.url,
   });
 
-  R execute();
+  A executeP1();
+  A executeP2();
   final String title;
+  final String url;
 
-  void logTitle() => print('# $title #\n');
+  void logTitle() => print('# $title #\n$url\n');
 }

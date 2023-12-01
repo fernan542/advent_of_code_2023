@@ -1,8 +1,8 @@
 import 'day_01/day_01.dart';
 
 void main(List<String> args) {
-  if (args.length != 1) {
-    print('Usage: <dayNumber>');
+  if (args.length != 2) {
+    print('Usage: <dayNumber> <part>');
     return;
   }
 
@@ -12,11 +12,13 @@ void main(List<String> args) {
     return;
   }
 
-  switch (day) {
-    case 1:
-      Day01().execute();
-      break;
-    default:
-      break;
+  final part = int.tryParse(args[1]) ?? 1;
+
+  if (day == 1) {
+    if (part == 1) {
+      Day01().executeP1();
+    } else {
+      Day01().executeP2();
+    }
   }
 }

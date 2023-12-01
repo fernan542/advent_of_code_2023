@@ -3,12 +3,17 @@ import 'package:test/test.dart';
 
 void main() {
   group('Day 01', () {
-    test('Returns sorted list of calories.', () {
+    test('sum of all of the calibration values part 1.', () {
       expect(
-        Day01().execute(),
-        equals(
-          [9999999, 24000, 11000, 10000, 6000, 4000],
-        ),
+        Day01().executeP1(),
+        equals(54390),
+      );
+    });
+
+    test('sum of all of the calibration values part 2.', () {
+      expect(
+        Day01().executeP2(),
+        equals(54277),
       );
     });
   });
