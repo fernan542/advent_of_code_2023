@@ -9,5 +9,7 @@ abstract class Day<A> {
   final String title;
   final String url;
 
-  void logTitle() => print('# $title #\n$url\n');
+  void logP1Answer() => print('Part 01 Answer: ${executeP1()}');
+  void logP2Answer() => print('Part 02 Answer: ${executeP2()}');
+  void logTitle() => print('🎄 $title 🎄\nLink: $url\n');
 }

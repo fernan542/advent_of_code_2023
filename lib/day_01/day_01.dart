@@ -24,7 +24,6 @@ class Day01 extends Day<int> {
       },
     );
 
-    print(answer);
     return answer;
   }
 
@@ -78,7 +77,6 @@ class Day01 extends Day<int> {
       },
     );
 
-    print(answer);
     return answer;
   }
 }
