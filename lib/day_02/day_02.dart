@@ -2,10 +2,6 @@ import 'dart:io';
 
 import 'package:advent_of_code_2023/day.dart';
 
-const green = 'green';
-const red = 'red';
-const blue = 'blue';
-
 enum Cube {
   green(limit: 13),
   red(limit: 12),

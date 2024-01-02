@@ -1,5 +1,6 @@
 import 'package:advent_of_code_2023/day_01/day_01.dart';
 import 'package:advent_of_code_2023/day_02/day_02.dart';
+import 'package:advent_of_code_2023/day_03/day_03.dart';
 
 void main(List<String> args) {
   if (args.length != 2) {
@@ -28,6 +29,14 @@ void main(List<String> args) {
       Day02().logP1Answer();
     } else {
       Day02().logP2Answer();
+    }
+  }
+
+  if (day == 3) {
+    if (part == 1) {
+      Day03().logP1Answer();
+    } else {
+      Day03().logP2Answer();
     }
   }
 }
